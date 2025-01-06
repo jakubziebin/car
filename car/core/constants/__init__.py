@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from .paths import CHROME_DRIVER_PATH
 from .urls import OLX_URL
-from .element_ids import CONFIRM_PRIVACY_TERMS_BUTTON_ID
+from .element_names import MAX_PRICE_INPUT_NAME_OLX
+from .element_ids import CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX, SEARCH_INPUT_ID_OLX
 from .timeouts import DEFAULT_WAIT_TIMEOUT
 
 
@@ -12,7 +13,10 @@ __all__ = [
     # URLS
     "OLX_URL",
     # ELEMENT IDS
-    "CONFIRM_PRIVACY_TERMS_BUTTON_ID",
+    "CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX",
+    "SEARCH_INPUT_ID_OLX",
+    # ELEMENT NAMES
+    "MAX_PRICE_INPUT_NAME_OLX",
     # TIMEOUTS
     "DEFAULT_WAIT_TIMEOUT",
 ]
