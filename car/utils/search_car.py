@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from car.car.core.constants import (
     SEARCH_INPUT_ID_OLX,
+    CAR_TO_CHOOSE_CLASS_OLX,
     MAX_PRICE_INPUT_NAME_OLX,
     DEFAULT_WAIT_TIMEOUT,
     MODEL_CHOOSE_OLX_XPATH,
@@ -44,7 +45,7 @@ def choose_car_model_olx(webdriver: Chrome, car_model: str) -> None:
     car_list = webdriver.find_element(By.XPATH, MODEL_CHOOSE_OLX_XPATH)
     car_list.click()  # Expand the list of car models
 
-    cars_to_choose = car_list.find_elements(By.CLASS_NAME, "css-1rfy03l")
+    cars_to_choose = car_list.find_elements(By.CLASS_NAME, CAR_TO_CHOOSE_CLASS_OLX)
     car_model = car_model.capitalize()
 
     for car in cars_to_choose:
