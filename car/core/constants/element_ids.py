@@ -2,5 +2,6 @@ from __future__ import annotations
 
 from typing import Final
 
-
-CONFIRM_PRIVACY_TERMS_BUTTON_ID: Final = "onetrust-accept-btn-handler"
+# OLX
+CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX: Final[str] = "onetrust-accept-btn-handler"
+SEARCH_INPUT_ID_OLX: Final[str] = "search"
