@@ -5,3 +5,9 @@ from typing import Final
 MODEL_CHOOSE_OLX_XPATH: Final[str] = (
     """//span[text()="Model"]/following::div[@data-testid="flyout-wrapper"][1]"""
 )
+CATEGORY_DROPDOWN_OLX_XPATH: Final[str] = '//div[@data-cy="category-dropdown"]'
+ALL_CATEGORIES_OLX_XPATH: Final[str] = './/div[text()="Wszystkie kategorie"]'
+MOTORIZATION_OLX_XPATH: Final[str] = '//li[.//span[text()="Motoryzacja"]]'
+CAR_CATEGORY_OLX_XPATH: Final[str] = (
+    '//li[contains(text(), "Samochody osobowe") or .//span[text()="Samochody osobowe"]]'
+)
