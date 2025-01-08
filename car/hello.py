@@ -12,6 +12,7 @@ from car.car.utils.search_car import (
     confirm_search_olx,
     set_max_price_olx,
     choose_car_model_olx,
+    set_category_olx,
 )
 
 
@@ -27,5 +28,6 @@ if __name__ == "__main__":
     paste_car_model_in_olx_search(driver, "Kia", "rio")
     confirm_search_olx(driver)
     set_max_price_olx(driver, 40_000)
+    set_category_olx(driver)
     choose_car_model_olx(driver, "rio")
     time.sleep(1000)
