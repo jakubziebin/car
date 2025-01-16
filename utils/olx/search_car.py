@@ -17,6 +17,8 @@ from car.core.olx.constants import (
     MAX_PRICE_INPUT_NAME_OLX,
     DEFAULT_WAIT_TIMEOUT,
     MODEL_CHOOSE_OLX_XPATH,
+    FROM_PRODUCTION_YEAR_OLX_XPATH,
+    TO_PRODUCTION_YEAR_OLX_XPATH,
 )
 from car.core.olx.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
@@ -107,3 +109,18 @@ def choose_car_model_olx(webdriver: Chrome, car_model: str) -> None:
 
     assert car_list is not None, "Car list should be present at this moment!"
     car_list.click()
+
+
+def set_production_year_fork_olx(
+    webdriver: Chrome, *, from_year: int, to_year: int
+) -> None:
+    """Set min and max production year of the car."""
+    from_production_year_input = webdriver.find_element(
+        By.XPATH, FROM_PRODUCTION_YEAR_OLX_XPATH
+    )
+    from_production_year_input.send_keys(str(from_year))
+
+    to_production_year_input = webdriver.find_element(
+        By.XPATH, TO_PRODUCTION_YEAR_OLX_XPATH
+    )
+    to_production_year_input.send_keys(str(to_year))

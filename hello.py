@@ -13,6 +13,7 @@ from car.utils.olx.search_car import (
     set_max_price_olx,
     choose_car_model_olx,
     set_category_olx,
+    set_production_year_fork_olx,
 )
 
 
@@ -30,4 +31,5 @@ if __name__ == "__main__":
     set_max_price_olx(driver, 40_000)
     set_category_olx(driver)
     choose_car_model_olx(driver, "rio")
+    set_production_year_fork_olx(driver, from_year=2014, to_year=2018)
     time.sleep(1000)
