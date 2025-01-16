@@ -11,3 +11,9 @@ MOTORIZATION_OLX_XPATH: Final[str] = '//li[.//span[text()="Motoryzacja"]]'
 CAR_CATEGORY_OLX_XPATH: Final[str] = (
     '//li[contains(text(), "Samochody osobowe") or .//span[text()="Samochody osobowe"]]'
 )
+FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Rok prod.")]/following::input[@name="range-from-input"][1]'
+)
+TO_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Rok prod.")]/following::input[@name="range-to-input"][1]'
+)
