@@ -8,14 +8,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from car.car.core.constants import (
+from car.core.constants import (
     SEARCH_INPUT_ID_OLX,
     CAR_TO_CHOOSE_CLASS_OLX,
     MAX_PRICE_INPUT_NAME_OLX,
     DEFAULT_WAIT_TIMEOUT,
     MODEL_CHOOSE_OLX_XPATH,
 )
-from car.car.core.constants.xpaths import (
+from car.core.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
     CATEGORY_DROPDOWN_OLX_XPATH,
     MOTORIZATION_OLX_XPATH,

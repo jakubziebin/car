@@ -5,9 +5,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-from car.car.core.constants import CHROME_DRIVER_PATH, OLX_URL
-from car.car.utils.confirm_privacy_terms import confirm_olx_privacy_terms
-from car.car.utils.search_car import (
+from car.core.constants import CHROME_DRIVER_PATH, OLX_URL
+from car.utils.confirm_privacy_terms import confirm_olx_privacy_terms
+from car.utils.search_car import (
     paste_car_model_in_olx_search,
     confirm_search_olx,
     set_max_price_olx,
