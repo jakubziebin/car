@@ -19,6 +19,8 @@ from car.core.olx.constants import (
     MODEL_CHOOSE_OLX_XPATH,
     FROM_PRODUCTION_YEAR_OLX_XPATH,
     TO_PRODUCTION_YEAR_OLX_XPATH,
+    FROM_ENGINE_CAPACITY_OLX_XPATH,
+    TO_ENGINE_CAPACITY_OLX_XPATH,
 )
 from car.core.olx.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
@@ -124,3 +126,23 @@ def set_production_year_fork_olx(
         By.XPATH, TO_PRODUCTION_YEAR_OLX_XPATH
     )
     to_production_year_input.send_keys(str(to_year))
+
+
+def set_engine_capacity_olx(
+    webdriver: Chrome,
+    *,
+    from_capacity: int | None = None,
+    to_capacity: int | None = None,
+) -> None:
+    """Set min and max engine capacity of the car."""
+    if from_capacity is not None:
+        from_production_year_input = webdriver.find_element(
+            By.XPATH, FROM_ENGINE_CAPACITY_OLX_XPATH
+        )
+        from_production_year_input.send_keys(str(from_capacity))
+
+    if to_capacity is not None:
+        to_production_year_input = webdriver.find_element(
+            By.XPATH, TO_ENGINE_CAPACITY_OLX_XPATH
+        )
+        to_production_year_input.send_keys(str(to_capacity))
