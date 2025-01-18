@@ -15,6 +15,8 @@ from car.utils.olx.search_car import (
     set_category_olx,
     set_production_year_fork_olx,
     set_engine_capacity_olx,
+    set_car_mileage_olx,
+    set_engine_power_olx,
 )
 
 
@@ -34,4 +36,6 @@ if __name__ == "__main__":
     choose_car_model_olx(driver, "rio")
     set_production_year_fork_olx(driver, from_year=2014, to_year=2018)
     set_engine_capacity_olx(driver, from_capacity=1250)
+    set_car_mileage_olx(driver, max_mileage=100_000)
+    set_engine_power_olx(driver, min_power=85)
     time.sleep(1000)
