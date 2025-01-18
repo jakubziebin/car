@@ -10,12 +10,14 @@ from car.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
 from car.utils.olx.search_car import (
     paste_car_model_in_olx_search,
     confirm_search_olx,
-    set_max_price_olx,
     choose_car_model_olx,
     set_category_olx,
-    set_production_year_fork_olx,
+)
+from car.utils.olx.set_search_ranges import (
+    set_max_price_olx,
     set_engine_capacity_olx,
     set_car_mileage_olx,
+    set_production_year_fork_olx,
     set_engine_power_olx,
 )
 
