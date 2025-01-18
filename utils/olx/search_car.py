@@ -121,15 +121,13 @@ def set_production_year_fork_olx(
     webdriver: Chrome, *, from_year: int, to_year: int
 ) -> None:
     """Set min and max production year of the car."""
-    from_production_year_input = webdriver.find_element(
-        By.XPATH, FROM_PRODUCTION_YEAR_OLX_XPATH
+    _set_range_inputs_value(
+        webdriver,
+        FROM_PRODUCTION_YEAR_OLX_XPATH,
+        TO_PRODUCTION_YEAR_OLX_XPATH,
+        min_value=from_year,
+        max_value=to_year,
     )
-    from_production_year_input.send_keys(str(from_year))
-
-    to_production_year_input = webdriver.find_element(
-        By.XPATH, TO_PRODUCTION_YEAR_OLX_XPATH
-    )
-    to_production_year_input.send_keys(str(to_year))
 
 
 def set_engine_capacity_olx(
@@ -139,17 +137,13 @@ def set_engine_capacity_olx(
     to_capacity: int | None = None,
 ) -> None:
     """Set min and max engine capacity of the car."""
-    if from_capacity is not None:
-        from_production_year_input = webdriver.find_element(
-            By.XPATH, FROM_ENGINE_CAPACITY_OLX_XPATH
-        )
-        from_production_year_input.send_keys(str(from_capacity))
-
-    if to_capacity is not None:
-        to_production_year_input = webdriver.find_element(
-            By.XPATH, TO_ENGINE_CAPACITY_OLX_XPATH
-        )
-        to_production_year_input.send_keys(str(to_capacity))
+    _set_range_inputs_value(
+        webdriver,
+        FROM_ENGINE_CAPACITY_OLX_XPATH,
+        TO_ENGINE_CAPACITY_OLX_XPATH,
+        min_value=from_capacity,
+        max_value=to_capacity,
+    )
 
 
 def set_car_mileage_olx(
@@ -159,17 +153,13 @@ def set_car_mileage_olx(
     max_mileage: int | None = None,
 ) -> None:
     """Set min and max mileage of the searched car."""
-    if min_mileage is not None:
-        min_mileage_input = webdriver.find_element(
-            By.XPATH, MIN_MILEAGE_INPUT_OLX_XPATH
-        )
-        min_mileage_input.send_keys(str(min_mileage))
-
-    if max_mileage is not None:
-        max_mileage_input = webdriver.find_element(
-            By.XPATH, MAX_MILEAGE_INPUT_OLX_XPATH
-        )
-        max_mileage_input.send_keys(str(max_mileage))
+    _set_range_inputs_value(
+        webdriver,
+        MIN_MILEAGE_INPUT_OLX_XPATH,
+        MAX_MILEAGE_INPUT_OLX_XPATH,
+        min_value=min_mileage,
+        max_value=max_mileage,
+    )
 
 
 def set_engine_power_olx(
@@ -179,10 +169,28 @@ def set_engine_power_olx(
     max_power: int | None = None,
 ) -> None:
     """Set min and max power of the engine."""
-    if min_power is not None:
-        min_mileage_input = webdriver.find_element(By.XPATH, MIN_POWER_INPUT_OLX_XPATH)
-        min_mileage_input.send_keys(str(min_power))
+    _set_range_inputs_value(
+        webdriver,
+        MIN_POWER_INPUT_OLX_XPATH,
+        MAX_POWER_INPUT_OLX_XPATH,
+        min_value=min_power,
+        max_value=max_power,
+    )
 
-    if max_power is not None:
-        max_mileage_input = webdriver.find_element(By.XPATH, MAX_POWER_INPUT_OLX_XPATH)
-        max_mileage_input.send_keys(str(max_power))
+
+def _set_range_inputs_value(
+    webdriver: Chrome,
+    min_input_xpath: str,
+    max_input_x_path: str,
+    *,
+    min_value: int | None = None,
+    max_value: int | None = None,
+) -> None:
+    """Function to set value of inputs with min and max value."""
+    if min_value is not None:
+        min_value_input = webdriver.find_element(By.XPATH, min_input_xpath)
+        min_value_input.send_keys(str(min_value))
+
+    if max_value is not None:
+        max_value_input = webdriver.find_element(By.XPATH, max_input_x_path)
+        max_value_input.send_keys(str(max_value))
