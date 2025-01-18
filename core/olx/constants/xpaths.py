@@ -17,3 +17,9 @@ FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
 TO_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Rok prod.")]/following::input[@name="range-to-input"][1]'
 )
+FROM_ENGINE_CAPACITY_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Poj. silnika")]/following::input[@name="range-from-input"][1]'
+)
+TO_ENGINE_CAPACITY_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Poj. silnika")]/following::input[@name="range-to-input"][1]'
+)
