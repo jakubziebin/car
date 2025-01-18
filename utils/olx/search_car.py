@@ -21,6 +21,8 @@ from car.core.olx.constants import (
     TO_PRODUCTION_YEAR_OLX_XPATH,
     FROM_ENGINE_CAPACITY_OLX_XPATH,
     TO_ENGINE_CAPACITY_OLX_XPATH,
+    MIN_MILEAGE_INPUT_OLX_XPATH,
+    MAX_MILEAGE_INPUT_OLX_XPATH,
 )
 from car.core.olx.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
@@ -146,3 +148,23 @@ def set_engine_capacity_olx(
             By.XPATH, TO_ENGINE_CAPACITY_OLX_XPATH
         )
         to_production_year_input.send_keys(str(to_capacity))
+
+
+def set_car_mileage_olx(
+    webdriver: Chrome,
+    *,
+    min_mileage: int | None = None,
+    max_mileage: int | None = None,
+) -> None:
+    """Set min and max mileage of the searched car."""
+    if min_mileage is not None:
+        min_mileage_input = webdriver.find_element(
+            By.XPATH, MIN_MILEAGE_INPUT_OLX_XPATH
+        )
+        min_mileage_input.send_keys(str(min_mileage))
+
+    if max_mileage is not None:
+        max_mileage_input = webdriver.find_element(
+            By.XPATH, MAX_MILEAGE_INPUT_OLX_XPATH
+        )
+        max_mileage_input.send_keys(str(max_mileage))
