@@ -29,3 +29,9 @@ MIN_MILEAGE_INPUT_OLX_XPATH: Final[str] = (
 MAX_MILEAGE_INPUT_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Przebieg")]/following::input[@name="range-to-input"][1]'
 )
+MIN_POWER_INPUT_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Moc silnika")]/following::input[@name="range-from-input"][1]'
+)
+MAX_POWER_INPUT_OLX_XPATH: Final[str] = (
+    '//div[contains(text(), "Moc silnika")]/following::input[@name="range-to-input"][1]'
+)
