@@ -1,19 +1,68 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypeVar
 
 from selenium.webdriver.common.by import By
 
+from car.exceptions.car_exception import CarException
 from car.core.olx.constants.xpaths import FUEL_TYPE_DROPDOWN_OLX_XPATH
 from car.core.olx.constants import DRIVE_TYPE_DROPDOWN_OLX_XPATH
+from car.core.olx.options_to_choose.car_attributes import (
+    CarPossibleFuelOlx,
+    CarPossibleDriveOlx,
+)
 
 if TYPE_CHECKING:
     from selenium.webdriver import Chrome
 
-    from car.core.olx.options_to_choose.car_attributes import (
-        CarPossibleFuelOlx,
-        CarPossibleDriveOlx,
-    )
+
+DropdownPossibleChooses = TypeVar(
+    "DropdownPossibleChooses", bound=CarPossibleDriveOlx | CarPossibleFuelOlx
+)
+
+
+class DropdownOptionsError(CarException):
+    """Base class for exceptions in the dropdown options."""
+
+
+class DropdownOptionsAllWithOthersError(DropdownOptionsError):
+    """Exception raised for choosing 'Wszystkie' option with others."""
+
+    def __init__(self) -> None:
+        self.message = "Cannot choose 'Wszystkie' option with others."
+        super().__init__(self.message)
+
+
+def _set_dropdown_options(
+    webdriver: Chrome,
+    dropdown_xpath: str,
+    *dropdown_chooses: DropdownPossibleChooses,
+) -> None:
+    """
+    Common function to set dropdown options.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        dropdown_xpath (str): XPath to the dropdown.
+        dropdown_chooses (DropdownPossibleChooses): Dropdown options to choose.
+
+    Raises:
+        DropdownOptionsAllWithOthersError: If 'Wszystkie' option is in dropdown_chooses and there are other options.
+    """
+    if len(dropdown_chooses) > 1 and "Wszystkie" in dropdown_chooses:
+        raise DropdownOptionsAllWithOthersError
+
+    dropdown = webdriver.find_element(By.XPATH, dropdown_xpath)
+    dropdown.click()
+
+    options_to_choose = dropdown.find_elements(By.TAG_NAME, "p")
+
+    for option in options_to_choose:
+        if option.text not in dropdown_chooses:
+            continue
+        option.click()
+
+    dropdown.click()  # Close dropdown after choosing options.
 
 
 def set_fuel_type_olx(webdriver: Chrome, *fuel_types: CarPossibleFuelOlx) -> None:
@@ -24,15 +73,7 @@ def set_fuel_type_olx(webdriver: Chrome, *fuel_types: CarPossibleFuelOlx) -> Non
         webdriver (Chrome): Selenium webdriver.
         fuel_types (CarPossibleFuelOlx): Fuel types to choose.
     """
-    fuel_dropdown = webdriver.find_element(By.XPATH, FUEL_TYPE_DROPDOWN_OLX_XPATH)
-    fuel_dropdown.click()
-
-    fuels_to_choose = fuel_dropdown.find_elements(By.TAG_NAME, "p")
-
-    for fuel in fuels_to_choose:
-        if fuel.text not in fuel_types:
-            continue
-        fuel.click()
+    _set_dropdown_options(webdriver, FUEL_TYPE_DROPDOWN_OLX_XPATH, *fuel_types)
 
 
 def set_drive_type_olx(webdriver: Chrome, *drive_types: CarPossibleDriveOlx) -> None:
@@ -43,13 +84,4 @@ def set_drive_type_olx(webdriver: Chrome, *drive_types: CarPossibleDriveOlx) -> 
         webdriver (Chrome): Selenium webdriver.
         drive_types (CarPossibleDriveOlx): Drive types to choose.
     """
-    drive_dropdown = webdriver.find_element(By.XPATH, DRIVE_TYPE_DROPDOWN_OLX_XPATH)
-    drive_dropdown.click()
-
-    drives_to_choose = drive_dropdown.find_elements(By.TAG_NAME, "p")
-
-    for drive in drives_to_choose:
-        if drive.text not in drive_types:
-            continue
-        drive.click()
-    drive_dropdown.click()
+    _set_dropdown_options(webdriver, DRIVE_TYPE_DROPDOWN_OLX_XPATH, *drive_types)
