@@ -11,6 +11,7 @@ from car.core.olx.constants import (
     GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
     BODY_TYPE_DROPDOWN_OLX_XPATH,
     PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
+    CAR_COLOR_DROPDOWN_OLX_XPATH,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
@@ -18,6 +19,7 @@ from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleGearboxOlx,
     CarPossibleBodyOlx,
     CarPossibleCountryProductionOlx,
+    CarPossibleColorOlx,
 )
 
 if TYPE_CHECKING:
@@ -30,7 +32,8 @@ DropdownPossibleChooses = TypeVar(
     | CarPossibleFuelOlx
     | CarPossibleGearboxOlx
     | CarPossibleBodyOlx
-    | CarPossibleCountryProductionOlx,
+    | CarPossibleCountryProductionOlx
+    | CarPossibleColorOlx,
 )
 
 
@@ -135,3 +138,14 @@ def set_country_production_olx(
         countries (CarPossibleCountryProductionOlx): Countries to choose.
     """
     _set_dropdown_options(webdriver, PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH, *countries)
+
+
+def set_car_colors_olx(webdriver: Chrome, *colors: CarPossibleColorOlx) -> None:
+    """
+    Set car colors in the dropdown on the OLX website.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        colors (CarPossibleColorOlx): Car colors to choose.
+    """
+    _set_dropdown_options(webdriver, CAR_COLOR_DROPDOWN_OLX_XPATH, *colors)
