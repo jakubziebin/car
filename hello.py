@@ -13,7 +13,11 @@ from car.utils.olx.search_car import (
     choose_car_model_olx,
     set_category_olx,
 )
-from car.utils.olx.set_dropdown_inputs import set_fuel_type_olx, set_drive_type_olx
+from car.utils.olx.set_dropdown_inputs import (
+    set_fuel_type_olx,
+    set_drive_type_olx,
+    set_gearbox_type_olx,
+)
 from car.utils.olx.set_search_ranges import (
     set_max_price_olx,
     set_engine_capacity_olx,
@@ -43,4 +47,5 @@ if __name__ == "__main__":
     set_engine_power_olx(driver, min_power=85)
     set_fuel_type_olx(driver, "Benzyna")
     set_drive_type_olx(driver, "Na przednie koła")
+    set_gearbox_type_olx(driver, "Manualna")
     time.sleep(1000)

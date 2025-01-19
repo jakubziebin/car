@@ -18,3 +18,4 @@ CarPossibleDriveOlx = Literal[
     "Na przednie koła",
     "Na tylne koła",
 ]
+CarPossibleGearboxOlx = Literal["Wszystkie", "Manualna", "Automatyczna"]
