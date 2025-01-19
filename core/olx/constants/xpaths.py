@@ -29,6 +29,9 @@ PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH = (
 CAR_COLOR_DROPDOWN_OLX_XPATH = (
     '//span[text()="Kolor"]/following::div[@data-testid="flyout-wrapper"][1]'
 )
+CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH = (
+    '//span[text()="Kierownica"]/following::div[@data-testid="flyout-wrapper"][1]'
+)
 FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Rok prod.")]/following::input[@name="range-from-input"][1]'
 )

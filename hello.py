@@ -20,6 +20,7 @@ from car.utils.olx.set_dropdown_inputs import (
     set_body_type_olx,
     set_country_production_olx,
     set_car_colors_olx,
+    set_car_steering_wheel_placement_olx,
 )
 from car.utils.olx.set_search_ranges import (
     set_max_price_olx,
@@ -54,4 +55,5 @@ if __name__ == "__main__":
     set_body_type_olx(driver, "Hatchback")
     set_country_production_olx(driver, "Polska", "Niemcy")
     set_car_colors_olx(driver, "Biały", "Czarny", "Szary", "Czerwony")
+    set_car_steering_wheel_placement_olx(driver, "po prawej")
     time.sleep(1000)

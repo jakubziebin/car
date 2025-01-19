@@ -12,6 +12,7 @@ from car.core.olx.constants import (
     BODY_TYPE_DROPDOWN_OLX_XPATH,
     PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
     CAR_COLOR_DROPDOWN_OLX_XPATH,
+    CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
@@ -20,6 +21,7 @@ from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleBodyOlx,
     CarPossibleCountryProductionOlx,
     CarPossibleColorOlx,
+    CarSteeringWheelPlacementOlx,
 )
 
 if TYPE_CHECKING:
@@ -33,7 +35,8 @@ DropdownPossibleChooses = TypeVar(
     | CarPossibleGearboxOlx
     | CarPossibleBodyOlx
     | CarPossibleCountryProductionOlx
-    | CarPossibleColorOlx,
+    | CarPossibleColorOlx
+    | CarSteeringWheelPlacementOlx,
 )
 
 
@@ -149,3 +152,20 @@ def set_car_colors_olx(webdriver: Chrome, *colors: CarPossibleColorOlx) -> None:
         colors (CarPossibleColorOlx): Car colors to choose.
     """
     _set_dropdown_options(webdriver, CAR_COLOR_DROPDOWN_OLX_XPATH, *colors)
+
+
+def set_car_steering_wheel_placement_olx(
+    webdriver: Chrome, *steering_wheel_placements: CarSteeringWheelPlacementOlx
+) -> None:
+    """
+    Set car steering wheel placement in the dropdown on the OLX website.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        steering_wheel_placements (CarSteeringWheelPlacementOlx): Steering wheel placements to choose.
+    """
+    _set_dropdown_options(
+        webdriver,
+        CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
+        *steering_wheel_placements,
+    )
