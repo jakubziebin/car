@@ -62,3 +62,4 @@ CarPossibleColorOlx = Literal[
     "Żółty - Złoty",
     "Inny kolor",
 ]
+CarSteeringWheelPlacementOlx = Literal["Wszystkie", "po lewej", "po prawej"]
