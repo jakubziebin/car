@@ -10,12 +10,14 @@ from car.core.olx.constants import (
     DRIVE_TYPE_DROPDOWN_OLX_XPATH,
     GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
     BODY_TYPE_DROPDOWN_OLX_XPATH,
+    PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
     CarPossibleDriveOlx,
     CarPossibleGearboxOlx,
     CarPossibleBodyOlx,
+    CarPossibleCountryProductionOlx,
 )
 
 if TYPE_CHECKING:
@@ -27,7 +29,8 @@ DropdownPossibleChooses = TypeVar(
     bound=CarPossibleDriveOlx
     | CarPossibleFuelOlx
     | CarPossibleGearboxOlx
-    | CarPossibleBodyOlx,
+    | CarPossibleBodyOlx
+    | CarPossibleCountryProductionOlx,
 )
 
 
@@ -119,3 +122,16 @@ def set_body_type_olx(webdriver: Chrome, *body_types: CarPossibleBodyOlx) -> Non
         body_types (CarPossibleBodyOlx): Body types to choose.
     """
     _set_dropdown_options(webdriver, BODY_TYPE_DROPDOWN_OLX_XPATH, *body_types)
+
+
+def set_country_production_olx(
+    webdriver: Chrome, *countries: CarPossibleCountryProductionOlx
+) -> None:
+    """
+    Set country production in the dropdown on the OLX website.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        countries (CarPossibleCountryProductionOlx): Countries to choose.
+    """
+    _set_dropdown_options(webdriver, PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH, *countries)
