@@ -32,3 +32,20 @@ CarPossibleBodyOlx = Literal[
     "Minivan",
     "SUV",
 ]
+CarPossibleCountryProductionOlx = Literal[
+    "Wszystkie",
+    "Polska",
+    "Austria",
+    "Czechy",
+    "Finlandia",
+    "Hiszpania",
+    "Holandia",
+    "Kanada",
+    "Niemcy",
+    "Słowacja",
+    "Stany Zjednoczone",
+    "Szwajcaria",
+    "Szwecja",
+    "Włochy",
+    "Wielka Brytania",
+]
