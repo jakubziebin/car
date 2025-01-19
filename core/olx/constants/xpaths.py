@@ -20,6 +20,9 @@ DRIVE_TYPE_DROPDOWN_OLX_XPATH = (
 GEARBOX_TYPE_DROPDOWN_OLX_XPATH = (
     '//span[text()="Skrzynia biegów"]/following::div[@data-testid="flyout-wrapper"][1]'
 )
+BODY_TYPE_DROPDOWN_OLX_XPATH = (
+    '//span[text()="Typ nadwozia"]/following::div[@data-testid="flyout-wrapper"][1]'
+)
 FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Rok prod.")]/following::input[@name="range-from-input"][1]'
 )
