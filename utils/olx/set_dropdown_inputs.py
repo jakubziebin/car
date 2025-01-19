@@ -13,6 +13,7 @@ from car.core.olx.constants import (
     PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
     CAR_COLOR_DROPDOWN_OLX_XPATH,
     CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
+    CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
@@ -22,6 +23,7 @@ from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleCountryProductionOlx,
     CarPossibleColorOlx,
     CarSteeringWheelPlacementOlx,
+    CarTechnicalConditionOlx,
 )
 
 if TYPE_CHECKING:
@@ -36,7 +38,8 @@ DropdownPossibleChooses = TypeVar(
     | CarPossibleBodyOlx
     | CarPossibleCountryProductionOlx
     | CarPossibleColorOlx
-    | CarSteeringWheelPlacementOlx,
+    | CarSteeringWheelPlacementOlx
+    | CarTechnicalConditionOlx,
 )
 
 
@@ -168,4 +171,21 @@ def set_car_steering_wheel_placement_olx(
         webdriver,
         CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
         *steering_wheel_placements,
+    )
+
+
+def set_car_technical_condition_olx(
+    webdriver: Chrome, *technical_conditions: CarTechnicalConditionOlx
+) -> None:
+    """
+    Set car technical condition in the dropdown on the OLX website.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        technical_conditions (CarTechnicalConditionOlx): Technical conditions to choose.
+    """
+    _set_dropdown_options(
+        webdriver,
+        CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+        *technical_conditions,
     )
