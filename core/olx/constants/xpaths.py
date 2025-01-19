@@ -26,6 +26,9 @@ BODY_TYPE_DROPDOWN_OLX_XPATH = (
 PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH = (
     '//span[text()="Kraj pochodzenia"]/following::div[@data-testid="flyout-wrapper"][1]'
 )
+CAR_COLOR_DROPDOWN_OLX_XPATH = (
+    '//span[text()="Kolor"]/following::div[@data-testid="flyout-wrapper"][1]'
+)
 FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Rok prod.")]/following::input[@name="range-from-input"][1]'
 )

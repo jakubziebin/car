@@ -49,3 +49,16 @@ CarPossibleCountryProductionOlx = Literal[
     "Włochy",
     "Wielka Brytania",
 ]
+CarPossibleColorOlx = Literal[
+    "Wszystkie",
+    "Biały",
+    "Czarny",
+    "Szary",
+    "Srebrny",
+    "Niebieski",
+    "Brązowy - Beżowy",
+    "Czerwony",
+    "Zielony",
+    "Żółty - Złoty",
+    "Inny kolor",
+]
