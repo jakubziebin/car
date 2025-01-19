@@ -11,3 +11,10 @@ CarPossibleFuelOlx = Literal[
     "Hybryda Plug-in",
     "Elektryczny",
 ]
+CarPossibleDriveOlx = Literal[
+    "Wszystkie",
+    "4X4 (dołączany automatycznie)",
+    "4X4 (dołączany ręcznie)",
+    "Na przednie koła",
+    "Na tylne koła",
+]

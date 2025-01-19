@@ -14,6 +14,9 @@ CAR_CATEGORY_OLX_XPATH: Final[str] = (
 FUEL_TYPE_DROPDOWN_OLX_XPATH = (
     '//span[text()="Paliwo"]/following::div[@data-testid="flyout-wrapper"][1]'
 )
+DRIVE_TYPE_DROPDOWN_OLX_XPATH = (
+    '//span[text()="Napęd"]/following::div[@data-testid="flyout-wrapper"][1]'
+)
 FROM_PRODUCTION_YEAR_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Rok prod.")]/following::input[@name="range-from-input"][1]'
 )
