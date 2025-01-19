@@ -9,11 +9,13 @@ from car.core.olx.constants.xpaths import FUEL_TYPE_DROPDOWN_OLX_XPATH
 from car.core.olx.constants import (
     DRIVE_TYPE_DROPDOWN_OLX_XPATH,
     GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
+    BODY_TYPE_DROPDOWN_OLX_XPATH,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
     CarPossibleDriveOlx,
     CarPossibleGearboxOlx,
+    CarPossibleBodyOlx,
 )
 
 if TYPE_CHECKING:
@@ -22,7 +24,10 @@ if TYPE_CHECKING:
 
 DropdownPossibleChooses = TypeVar(
     "DropdownPossibleChooses",
-    bound=CarPossibleDriveOlx | CarPossibleFuelOlx | CarPossibleGearboxOlx,
+    bound=CarPossibleDriveOlx
+    | CarPossibleFuelOlx
+    | CarPossibleGearboxOlx
+    | CarPossibleBodyOlx,
 )
 
 
@@ -103,3 +108,14 @@ def set_gearbox_type_olx(
         gearbox_types (CarPossibleGearboxOlx): Gearbox types to choose.
     """
     _set_dropdown_options(webdriver, GEARBOX_TYPE_DROPDOWN_OLX_XPATH, *gearbox_types)
+
+
+def set_body_type_olx(webdriver: Chrome, *body_types: CarPossibleBodyOlx) -> None:
+    """
+    Set body type in the dropdown on the OLX website.
+
+    Args:
+        webdriver (Chrome): Selenium webdriver.
+        body_types (CarPossibleBodyOlx): Body types to choose.
+    """
+    _set_dropdown_options(webdriver, BODY_TYPE_DROPDOWN_OLX_XPATH, *body_types)

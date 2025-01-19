@@ -19,3 +19,16 @@ CarPossibleDriveOlx = Literal[
     "Na tylne koła",
 ]
 CarPossibleGearboxOlx = Literal["Wszystkie", "Manualna", "Automatyczna"]
+CarPossibleBodyOlx = Literal[
+    "Wszystie",
+    "Kabriolet",
+    "Sedan",
+    "Coupe",
+    "Pickup",
+    "Hatchback",
+    "Kombi",
+    "Terenowy",
+    "Minibus",
+    "Minivan",
+    "SUV",
+]
