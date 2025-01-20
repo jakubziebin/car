@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from typing import TYPE_CHECKING, TypeVar
 
 from selenium.webdriver.common.by import By
@@ -14,6 +15,7 @@ from car.core.olx.constants import (
     CAR_COLOR_DROPDOWN_OLX_XPATH,
     CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
     CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+    DEFAULT_WAIT_AFTER_CLOSE_DROPDOWN,
 )
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
@@ -85,6 +87,7 @@ def _set_dropdown_options(
         option.click()
 
     dropdown.click()  # Close dropdown after choosing options.
+    time.sleep(DEFAULT_WAIT_AFTER_CLOSE_DROPDOWN)
 
 
 def set_fuel_type_olx(webdriver: Chrome, *fuel_types: CarPossibleFuelOlx) -> None:

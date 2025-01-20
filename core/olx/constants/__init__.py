@@ -27,7 +27,7 @@ from .xpaths import (
 from .element_names import MAX_PRICE_INPUT_NAME_OLX
 from .element_ids import CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX, SEARCH_INPUT_ID_OLX
 from .element_classes import CAR_TO_CHOOSE_CLASS_OLX
-from .timeouts import DEFAULT_WAIT_TIMEOUT
+from .timeouts import DEFAULT_WAIT_TIMEOUT, DEFAULT_WAIT_AFTER_CLOSE_DROPDOWN
 
 
 __all__ = [
@@ -44,6 +44,7 @@ __all__ = [
     "MAX_PRICE_INPUT_NAME_OLX",
     # TIMEOUTS
     "DEFAULT_WAIT_TIMEOUT",
+    "DEFAULT_WAIT_AFTER_CLOSE_DROPDOWN",
     # XPATH
     "MODEL_CHOOSE_OLX_XPATH",
     "CATEGORY_DROPDOWN_OLX_XPATH",
