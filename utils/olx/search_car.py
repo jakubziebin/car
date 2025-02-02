@@ -42,7 +42,9 @@ def confirm_search_olx(webdriver: Chrome) -> None:
 
 def set_category_olx(webdriver: Chrome) -> None:
     """Wait for category input to be present and set the category (if not set before)."""
-
+    WebDriverWait(webdriver, DEFAULT_WAIT_TIMEOUT).until(
+        EC.presence_of_element_located((By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH))
+    )
     category_dropdown = webdriver.find_element(By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH)
 
     try:
