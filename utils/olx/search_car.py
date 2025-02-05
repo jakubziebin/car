@@ -1,16 +1,17 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Final
+import contextlib
+from typing import TYPE_CHECKING
+from functools import partial
 
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    StaleElementReferenceException,
-)
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from car.utils.abc.car_searcher import BaseCarSearcher
+from car.utils.stale_element_handle import StaleElementHandler
 from car.core.olx.constants import (
     SEARCH_INPUT_ID_OLX,
     CAR_TO_CHOOSE_CLASS_OLX,
@@ -25,75 +26,94 @@ from car.core.olx.constants.xpaths import (
 )
 
 if TYPE_CHECKING:
-    from selenium.webdriver import Chrome
+    from selenium.webdriver.remote.webdriver import WebDriver
     from selenium.webdriver.remote.webelement import WebElement
 
 
-def paste_car_model_in_olx_search(
-    webdriver: Chrome, car_brand: str, car_model: str
-) -> None:
-    input_component = webdriver.find_element(By.ID, SEARCH_INPUT_ID_OLX)
-    input_component.send_keys(f"{car_brand} {car_model}")
+class CarSearcher(BaseCarSearcher):
+    """Class used to search car on OLX."""
 
+    def __init__(self, webdriver: WebDriver, car_brand: str, car_model: str) -> None:
+        """
+        Initialize CarSearcher.
 
-def confirm_search_olx(webdriver: Chrome) -> None:
-    webdriver.find_element(By.ID, SEARCH_INPUT_ID_OLX).submit()
+        Args:
+            webdriver: webdriver.
+            car_brand: brand of the car.
+            car_model: model of the car.
+        """
+        super().__init__(webdriver)
+        self._car_brand = car_brand
+        self._car_model = car_model
 
+    def execute_car_search(self) -> None:
+        self.paste_car_model_in_input()
+        self.confirm_search_olx()
+        self.click_category_dropdown()
+        self.set_category()
+        self.expand_car_models_list()
+        self.select_passed_model_from_expanded_list()
 
-def set_category_olx(webdriver: Chrome) -> None:
-    """Wait for category input to be present and set the category (if not set before)."""
-    WebDriverWait(webdriver, DEFAULT_WAIT_TIMEOUT).until(
-        EC.presence_of_element_located((By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH))
-    )
-    category_dropdown = webdriver.find_element(By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH)
+    def paste_car_model_in_input(self) -> None:
+        """Paste car model in the search input."""
+        input_component = self.webdriver.find_element(By.ID, SEARCH_INPUT_ID_OLX)
+        input_component.send_keys(f"{self._car_brand} {self._car_model}")
 
-    try:
-        category_dropdown.find_element(By.XPATH, ALL_CATEGORIES_OLX_XPATH)
-        category_dropdown.click()
-    except NoSuchElementException:
-        return  # Category is already set
+    def confirm_search_olx(self) -> None:
+        self.webdriver.find_element(By.ID, SEARCH_INPUT_ID_OLX).submit()
 
-    motorization_choose = webdriver.find_element(By.XPATH, MOTORIZATION_OLX_XPATH)
-    actions = ActionChains(webdriver)
-    actions.move_to_element(motorization_choose).perform()
+    def click_category_dropdown(self) -> None:
+        """Click of the dropdown with categories to choose."""
+        WebDriverWait(self.webdriver, DEFAULT_WAIT_TIMEOUT).until(
+            EC.presence_of_element_located((By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH))
+        )
+        category_dropdown = self.webdriver.find_element(
+            By.XPATH, CATEGORY_DROPDOWN_OLX_XPATH
+        )
 
-    car_item = webdriver.find_element(By.XPATH, CAR_CATEGORY_OLX_XPATH)
-    car_item.click()
+        with contextlib.suppress(
+            NoSuchElementException
+        ):  # Category is already set when exception occurred,
+            category_dropdown.find_element(By.XPATH, ALL_CATEGORIES_OLX_XPATH)
+            category_dropdown.click()
 
+    def set_category(self) -> None:
+        """Set motorization category."""
+        motorization_choose = self.webdriver.find_element(
+            By.XPATH, MOTORIZATION_OLX_XPATH
+        )
+        actions = ActionChains(self.webdriver)
+        actions.move_to_element(motorization_choose).perform()
 
-def choose_car_model_olx(webdriver: Chrome, car_model: str) -> None:
-    """Choose model car from the dropdown."""
-    car_list: WebElement | None = None
-    max_tries: Final[int] = 3
-    current = 0
+        car_item = self.webdriver.find_element(By.XPATH, CAR_CATEGORY_OLX_XPATH)
+        car_item.click()
 
-    WebDriverWait(webdriver, DEFAULT_WAIT_TIMEOUT).until(
-        EC.presence_of_element_located((By.XPATH, MODEL_CHOOSE_OLX_XPATH))
-    )
+    def expand_car_models_list(self) -> None:
+        def click_car_list() -> bool:
+            self.webdriver.find_element(By.XPATH, MODEL_CHOOSE_OLX_XPATH).click()
+            return True
 
-    while current <= max_tries:
-        car_list = webdriver.find_element(By.XPATH, MODEL_CHOOSE_OLX_XPATH)
-        try:
-            car_list.click()  # Expand the list of car models
-        except StaleElementReferenceException:  # Element moved
-            current += 1
-            continue
+        WebDriverWait(self.webdriver, DEFAULT_WAIT_TIMEOUT).until(
+            EC.presence_of_element_located((By.XPATH, MODEL_CHOOSE_OLX_XPATH))
+        )
+        StaleElementHandler(click_car_list).execute()
 
-        cars_to_choose = car_list.find_elements(By.CLASS_NAME, CAR_TO_CHOOSE_CLASS_OLX)
-        model = car_model.capitalize()
-        try:
-            for car in cars_to_choose:
+    def select_passed_model_from_expanded_list(self) -> None:
+        def click_chosen_model(cars: list[WebElement]) -> bool:
+            for car in cars:
                 try:
                     p_element = car.find_element(By.TAG_NAME, "p")
-                    if p_element.text == model:
+                    if p_element.text == self._car_model.capitalize():
                         car.click()
-                        break
+                        return True
                 except NoSuchElementException:
                     continue
-            break
-        except StaleElementReferenceException:
-            current += 1
-            continue
 
-    assert car_list is not None, "Car list should be present at this moment!"
-    car_list.click()
+            return False
+
+        car_list = self.webdriver.find_element(By.XPATH, MODEL_CHOOSE_OLX_XPATH)
+
+        cars_to_choose = car_list.find_elements(By.CLASS_NAME, CAR_TO_CHOOSE_CLASS_OLX)
+        StaleElementHandler(partial(click_chosen_model, cars=cars_to_choose)).execute()
+
+        car_list.click()  # close car list
