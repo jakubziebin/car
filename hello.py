@@ -7,12 +7,7 @@ from selenium.webdriver.chrome.service import Service
 
 from car.core.olx.constants import CHROME_DRIVER_PATH, OLX_URL
 from car.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
-from car.utils.olx.search_car import (
-    paste_car_model_in_olx_search,
-    confirm_search_olx,
-    choose_car_model_olx,
-    set_category_olx,
-)
+from car.utils.olx.search_car import CarSearcher
 from car.utils.olx.set_dropdown_inputs import (
     set_fuel_type_olx,
     set_drive_type_olx,
@@ -42,11 +37,10 @@ if __name__ == "__main__":
     )
 
     confirm_olx_privacy_terms(driver)
-    paste_car_model_in_olx_search(driver, "Kia", "rio")
-    confirm_search_olx(driver)
-    set_category_olx(driver)
-    choose_car_model_olx(driver, "rio")
+
+    CarSearcher(driver, "Kia", "rio").execute_car_search()
     OlxRangeInputsSetter(driver, ranges_config).execute_range_inputs_filling()
+
     set_fuel_type_olx(driver, "Benzyna")
     set_drive_type_olx(driver, "Na przednie koła")
     set_gearbox_type_olx(driver, "Manualna")
