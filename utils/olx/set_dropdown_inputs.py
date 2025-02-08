@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeVar
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Final, Any
 
-from selenium.webdriver.common.by import By
-
-from car.exceptions.car_exception import CarException
-from car.core.olx.constants.xpaths import FUEL_TYPE_DROPDOWN_OLX_XPATH
 from car.core.olx.constants import (
     DRIVE_TYPE_DROPDOWN_OLX_XPATH,
     GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
@@ -14,7 +11,9 @@ from car.core.olx.constants import (
     CAR_COLOR_DROPDOWN_OLX_XPATH,
     CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
     CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+    FUEL_TYPE_DROPDOWN_OLX_XPATH,
 )
+from car.core.car_search_config.car_properties_config import BaseCarPropertiesConfig
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
     CarPossibleDriveOlx,
@@ -25,167 +24,107 @@ from car.core.olx.options_to_choose.car_attributes import (
     CarSteeringWheelPlacementOlx,
     CarTechnicalConditionOlx,
 )
+from car.utils.abc.dropdown_inputs_setter import BaseDropdownInputsSetter
 
 if TYPE_CHECKING:
     from selenium.webdriver import Chrome
 
 
-DropdownPossibleChooses = TypeVar(
-    "DropdownPossibleChooses",
-    bound=CarPossibleDriveOlx
-    | CarPossibleFuelOlx
-    | CarPossibleGearboxOlx
-    | CarPossibleBodyOlx
-    | CarPossibleCountryProductionOlx
-    | CarPossibleColorOlx
-    | CarSteeringWheelPlacementOlx
-    | CarTechnicalConditionOlx,
-)
+DEFAULT_CAR_PROPERTY_OLX: Final[str] = "Wszystkie"
 
 
-class DropdownOptionsError(CarException):
-    """Base class for exceptions in the dropdown options."""
+def _get_default_property_olx_config() -> (
+    list[Any]
+):  # TODO: proper resolution of return type
+    return [DEFAULT_CAR_PROPERTY_OLX]
 
 
-class DropdownOptionsAllWithOthersError(DropdownOptionsError):
-    """Exception raised for choosing 'Wszystkie' option with others."""
-
-    def __init__(self) -> None:
-        self.message = "Cannot choose 'Wszystkie' option with others."
-        super().__init__(self.message)
-
-
-def _set_dropdown_options(
-    webdriver: Chrome,
-    dropdown_xpath: str,
-    *dropdown_chooses: DropdownPossibleChooses,
-) -> None:
-    """
-    Common function to set dropdown options.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        dropdown_xpath (str): XPath to the dropdown.
-        dropdown_chooses (DropdownPossibleChooses): Dropdown options to choose.
-
-    Raises:
-        DropdownOptionsAllWithOthersError: If 'Wszystkie' option is in dropdown_chooses and there are other options.
-    """
-    if len(dropdown_chooses) > 1 and "Wszystkie" in dropdown_chooses:
-        raise DropdownOptionsAllWithOthersError
-
-    dropdown = webdriver.find_element(By.XPATH, dropdown_xpath)
-    dropdown.click()
-
-    options_to_choose = dropdown.find_elements(By.TAG_NAME, "p")
-
-    for option in options_to_choose:
-        if option.text not in dropdown_chooses:
-            continue
-        option.click()
-
-    dropdown.click()  # Close dropdown after choosing options.
-
-
-def set_fuel_type_olx(webdriver: Chrome, *fuel_types: CarPossibleFuelOlx) -> None:
-    """
-    Set fuel type in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        fuel_types (CarPossibleFuelOlx): Fuel types to choose.
-    """
-    _set_dropdown_options(webdriver, FUEL_TYPE_DROPDOWN_OLX_XPATH, *fuel_types)
-
-
-def set_drive_type_olx(webdriver: Chrome, *drive_types: CarPossibleDriveOlx) -> None:
-    """
-    Set drive type in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        drive_types (CarPossibleDriveOlx): Drive types to choose.
-    """
-    _set_dropdown_options(webdriver, DRIVE_TYPE_DROPDOWN_OLX_XPATH, *drive_types)
-
-
-def set_gearbox_type_olx(
-    webdriver: Chrome, *gearbox_types: CarPossibleGearboxOlx
-) -> None:
-    """
-    Set gearbox type in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        gearbox_types (CarPossibleGearboxOlx): Gearbox types to choose.
-    """
-    _set_dropdown_options(webdriver, GEARBOX_TYPE_DROPDOWN_OLX_XPATH, *gearbox_types)
-
-
-def set_body_type_olx(webdriver: Chrome, *body_types: CarPossibleBodyOlx) -> None:
-    """
-    Set body type in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        body_types (CarPossibleBodyOlx): Body types to choose.
-    """
-    _set_dropdown_options(webdriver, BODY_TYPE_DROPDOWN_OLX_XPATH, *body_types)
-
-
-def set_country_production_olx(
-    webdriver: Chrome, *countries: CarPossibleCountryProductionOlx
-) -> None:
-    """
-    Set country production in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        countries (CarPossibleCountryProductionOlx): Countries to choose.
-    """
-    _set_dropdown_options(webdriver, PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH, *countries)
-
-
-def set_car_colors_olx(webdriver: Chrome, *colors: CarPossibleColorOlx) -> None:
-    """
-    Set car colors in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        colors (CarPossibleColorOlx): Car colors to choose.
-    """
-    _set_dropdown_options(webdriver, CAR_COLOR_DROPDOWN_OLX_XPATH, *colors)
-
-
-def set_car_steering_wheel_placement_olx(
-    webdriver: Chrome, *steering_wheel_placements: CarSteeringWheelPlacementOlx
-) -> None:
-    """
-    Set car steering wheel placement in the dropdown on the OLX website.
-
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        steering_wheel_placements (CarSteeringWheelPlacementOlx): Steering wheel placements to choose.
-    """
-    _set_dropdown_options(
-        webdriver,
-        CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
-        *steering_wheel_placements,
+@dataclass
+class OlxCarPropertiesConfig(BaseCarPropertiesConfig):
+    fuel_types: list[CarPossibleFuelOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    drive_types: list[CarPossibleDriveOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    gearbox_types: list[CarPossibleGearboxOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    body_types: list[CarPossibleBodyOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    production_countries: list[CarPossibleCountryProductionOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    colors: list[CarPossibleColorOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    steering_wheel_placements: list[CarSteeringWheelPlacementOlx] = field(
+        default_factory=_get_default_property_olx_config
+    )
+    technical_conditions: list[CarTechnicalConditionOlx] = field(
+        default_factory=_get_default_property_olx_config
     )
 
 
-def set_car_technical_condition_olx(
-    webdriver: Chrome, *technical_conditions: CarTechnicalConditionOlx
-) -> None:
-    """
-    Set car technical condition in the dropdown on the OLX website.
+class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
+    def __init__(self, webdriver: Chrome, config: OlxCarPropertiesConfig) -> None:
+        super().__init__(webdriver=webdriver, car_properties_config=config)
 
-    Args:
-        webdriver (Chrome): Selenium webdriver.
-        technical_conditions (CarTechnicalConditionOlx): Technical conditions to choose.
-    """
-    _set_dropdown_options(
-        webdriver,
-        CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
-        *technical_conditions,
-    )
+    @property
+    def config(self) -> OlxCarPropertiesConfig:
+        return self._config  # type: ignore[override, return-value]
+
+    def execute_dropdown_inputs_set(self) -> None:
+        self.set_fuel_type()
+        self.set_drive_type()
+        self.set_gearbox_type()
+        self.set_body_type()
+        self.set_country_production()
+        self.set_car_colors()
+        self.set_country_production()
+        self.set_car_technical_condition()
+
+    def set_fuel_type(self) -> None:
+        """Set fuel type in the dropdown on the OLX webste."""
+        self.set_dropdown_options(FUEL_TYPE_DROPDOWN_OLX_XPATH, *self.config.fuel_types)
+
+    def set_drive_type(self) -> None:
+        """Set drive type in the dropdown on the OLX website."""
+        self.set_dropdown_options(
+            DRIVE_TYPE_DROPDOWN_OLX_XPATH, *self.config.drive_types
+        )
+
+    def set_gearbox_type(self) -> None:
+        """Set gearbox type in the dropdown on the OLX website."""
+        self.set_dropdown_options(
+            GEARBOX_TYPE_DROPDOWN_OLX_XPATH, *self.config.gearbox_types
+        )
+
+    def set_body_type(self) -> None:
+        """Set body type in the dropdown on the OLX website."""
+        self.set_dropdown_options(BODY_TYPE_DROPDOWN_OLX_XPATH, *self.config.body_types)
+
+    def set_country_production(self) -> None:
+        """Set country production in the dropdown on the OLX website."""
+        self.set_dropdown_options(
+            PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH, *self.config.production_countries
+        )
+
+    def set_car_colors(self) -> None:
+        """Set car colors in the dropdown on the OLX website."""
+        self.set_dropdown_options(CAR_COLOR_DROPDOWN_OLX_XPATH, *self.config.colors)
+
+    def set_car_steering_wheel_placement(self) -> None:
+        """Set car steering wheel placement in the dropdown on the OLX website."""
+        self.set_dropdown_options(
+            CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
+            *self.config.steering_wheel_placements,
+        )
+
+    def set_car_technical_condition(self) -> None:
+        """Set car technical condition in the dropdown on the OLX website."""
+        self.set_dropdown_options(
+            CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+            *self.config.technical_conditions,
+        )
