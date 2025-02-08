@@ -9,14 +9,8 @@ from car.core.olx.constants import CHROME_DRIVER_PATH, OLX_URL
 from car.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
 from car.utils.olx.search_car import CarSearcher
 from car.utils.olx.set_dropdown_inputs import (
-    set_fuel_type_olx,
-    set_drive_type_olx,
-    set_gearbox_type_olx,
-    set_body_type_olx,
-    set_country_production_olx,
-    set_car_colors_olx,
-    set_car_steering_wheel_placement_olx,
-    set_car_technical_condition_olx,
+    OlxCarPropertiesConfig,
+    OlxDropdownInputsSetter,
 )
 from car.utils.olx.set_search_ranges import OlxRangeInputsSetter
 from car.core.car_search_config.range_config import CarRangesConfig
@@ -36,17 +30,19 @@ if __name__ == "__main__":
         min_power=85,
     )
 
-    confirm_olx_privacy_terms(driver)
+    car_properties_config = OlxCarPropertiesConfig(
+        fuel_types=["Benzyna"],
+        drive_types=["Na przednie koła"],
+        gearbox_types=["Manualna"],
+        body_types=["Hatchback"],
+        production_countries=["Polska", "Niemcy"],
+        colors=["Biały", "Czarny", "Szary", "Czerwony"],
+        steering_wheel_placements=["po prawej"],
+        technical_conditions=["Nieuszkodzony"],
+    )
 
+    confirm_olx_privacy_terms(driver)
     CarSearcher(driver, "Kia", "rio").execute_car_search()
     OlxRangeInputsSetter(driver, ranges_config).execute_range_inputs_filling()
-
-    set_fuel_type_olx(driver, "Benzyna")
-    set_drive_type_olx(driver, "Na przednie koła")
-    set_gearbox_type_olx(driver, "Manualna")
-    set_body_type_olx(driver, "Hatchback")
-    set_country_production_olx(driver, "Polska", "Niemcy")
-    set_car_colors_olx(driver, "Biały", "Czarny", "Szary", "Czerwony")
-    set_car_steering_wheel_placement_olx(driver, "po prawej")
-    set_car_technical_condition_olx(driver, "Nieuszkodzony")
+    OlxDropdownInputsSetter(driver, car_properties_config).execute_dropdown_inputs_set()
     time.sleep(1000)
