@@ -85,7 +85,7 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         self.set_body_type()
         self.set_country_production()
         self.set_car_colors()
-        self.set_country_production()
+        self.set_car_steering_wheel_placement()
         self.set_car_technical_condition()
 
     def set_fuel_type(self) -> None:
@@ -117,7 +117,7 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         self.set_dropdown_options(
             BODY_TYPE_DROPDOWN_OLX_XPATH,
             self.TIMEOUT_BETWEEN_ACTIONS,
-            self.config.body_types,
+            *self.config.body_types,
         )
 
     def set_country_production(self) -> None:
