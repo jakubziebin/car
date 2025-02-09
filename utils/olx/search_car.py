@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import contextlib
-from typing import TYPE_CHECKING
+import time
+from typing import TYPE_CHECKING, Final
 from functools import partial
 
 from selenium.common.exceptions import NoSuchElementException
@@ -10,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car.utils.abc.car_searcher import BaseCarSearcher
 from car.utils.stale_element_handle import StaleElementHandler
 from car.core.olx.constants import (
@@ -32,6 +34,8 @@ if TYPE_CHECKING:
 
 class CarSearcher(BaseCarSearcher):
     """Class used to search car on OLX."""
+
+    TIMEOUT_AFTER_ACTION: Final[float] = WAIT_BETWEEN_FIELDS_SETTING
 
     def __init__(self, webdriver: WebDriver, car_brand: str, car_model: str) -> None:
         """
@@ -87,6 +91,7 @@ class CarSearcher(BaseCarSearcher):
 
         car_item = self.webdriver.find_element(By.XPATH, CAR_CATEGORY_OLX_XPATH)
         car_item.click()
+        time.sleep(self.TIMEOUT_AFTER_ACTION)
 
     def expand_car_models_list(self) -> None:
         def click_car_list() -> bool:
@@ -97,6 +102,7 @@ class CarSearcher(BaseCarSearcher):
             EC.presence_of_element_located((By.XPATH, MODEL_CHOOSE_OLX_XPATH))
         )
         StaleElementHandler(click_car_list).execute()
+        time.sleep(self.TIMEOUT_AFTER_ACTION)
 
     def select_passed_model_from_expanded_list(self) -> None:
         def click_chosen_model(cars: list[WebElement]) -> bool:
@@ -117,3 +123,4 @@ class CarSearcher(BaseCarSearcher):
         StaleElementHandler(partial(click_chosen_model, cars=cars_to_choose)).execute()
 
         car_list.click()  # close car list
+        time.sleep(self.TIMEOUT_AFTER_ACTION)
