@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+import time
+from typing import TYPE_CHECKING, Final
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -19,6 +20,7 @@ from car.core.olx.constants import (
     MIN_POWER_INPUT_OLX_XPATH,
     MAX_POWER_INPUT_OLX_XPATH,
 )
+from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car.utils.abc.range_inputs_setter import RangeInputsSetter
 
 if TYPE_CHECKING:
@@ -26,6 +28,8 @@ if TYPE_CHECKING:
 
 
 class OlxRangeInputsSetter(RangeInputsSetter):
+    TIMEOUT_BETWEEN_ACTIONS: Final[float] = WAIT_BETWEEN_FIELDS_SETTING
+
     def __init__(self, webdriver: Chrome, car_ranges_config: CarRangesConfig) -> None:
         """
         Initialize OlxRangeInputsSetter.
@@ -50,6 +54,7 @@ class OlxRangeInputsSetter(RangeInputsSetter):
             TO_PRODUCTION_YEAR_OLX_XPATH,
             min_value=self._config.min_year,
             max_value=self._config.max_year,
+            timeout=self.TIMEOUT_BETWEEN_ACTIONS,
         )
 
     def set_max_price(self) -> None:
@@ -59,6 +64,7 @@ class OlxRangeInputsSetter(RangeInputsSetter):
 
         max_price_input = self.webdriver.find_element(By.NAME, MAX_PRICE_INPUT_NAME_OLX)
         max_price_input.send_keys(str(self._config.max_price))
+        time.sleep(self.TIMEOUT_BETWEEN_ACTIONS)
 
     def set_engine_capacity(self) -> None:
         self.set_range_inputs_value(
@@ -66,6 +72,7 @@ class OlxRangeInputsSetter(RangeInputsSetter):
             TO_ENGINE_CAPACITY_OLX_XPATH,
             min_value=self._config.min_capacity,
             max_value=self._config.max_capacity,
+            timeout=self.TIMEOUT_BETWEEN_ACTIONS,
         )
 
     def set_car_mileage(self) -> None:
@@ -74,6 +81,7 @@ class OlxRangeInputsSetter(RangeInputsSetter):
             MAX_MILEAGE_INPUT_OLX_XPATH,
             min_value=self._config.min_mileage,
             max_value=self._config.max_mileage,
+            timeout=self.TIMEOUT_BETWEEN_ACTIONS,
         )
 
     def set_engine_power(self) -> None:
@@ -82,4 +90,5 @@ class OlxRangeInputsSetter(RangeInputsSetter):
             MAX_POWER_INPUT_OLX_XPATH,
             min_value=self._config.min_power,
             max_value=self._config.max_power,
+            timeout=self.TIMEOUT_BETWEEN_ACTIONS,
         )

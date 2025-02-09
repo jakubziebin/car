@@ -14,6 +14,7 @@ from car.core.olx.constants import (
     FUEL_TYPE_DROPDOWN_OLX_XPATH,
 )
 from car.core.car_search_config.car_properties_config import BaseCarPropertiesConfig
+from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
     CarPossibleDriveOlx,
@@ -68,6 +69,8 @@ class OlxCarPropertiesConfig(BaseCarPropertiesConfig):
 
 
 class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
+    TIMEOUT_BETWEEN_ACTIONS: Final[float] = WAIT_BETWEEN_FIELDS_SETTING
+
     def __init__(self, webdriver: Chrome, config: OlxCarPropertiesConfig) -> None:
         super().__init__(webdriver=webdriver, car_properties_config=config)
 
@@ -87,38 +90,57 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
 
     def set_fuel_type(self) -> None:
         """Set fuel type in the dropdown on the OLX webste."""
-        self.set_dropdown_options(FUEL_TYPE_DROPDOWN_OLX_XPATH, *self.config.fuel_types)
+        self.set_dropdown_options(
+            FUEL_TYPE_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            *self.config.fuel_types,
+        )
 
     def set_drive_type(self) -> None:
         """Set drive type in the dropdown on the OLX website."""
         self.set_dropdown_options(
-            DRIVE_TYPE_DROPDOWN_OLX_XPATH, *self.config.drive_types
+            DRIVE_TYPE_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            *self.config.drive_types,
         )
 
     def set_gearbox_type(self) -> None:
         """Set gearbox type in the dropdown on the OLX website."""
         self.set_dropdown_options(
-            GEARBOX_TYPE_DROPDOWN_OLX_XPATH, *self.config.gearbox_types
+            GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            *self.config.gearbox_types,
         )
 
     def set_body_type(self) -> None:
         """Set body type in the dropdown on the OLX website."""
-        self.set_dropdown_options(BODY_TYPE_DROPDOWN_OLX_XPATH, *self.config.body_types)
+        self.set_dropdown_options(
+            BODY_TYPE_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            self.config.body_types,
+        )
 
     def set_country_production(self) -> None:
         """Set country production in the dropdown on the OLX website."""
         self.set_dropdown_options(
-            PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH, *self.config.production_countries
+            PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            *self.config.production_countries,
         )
 
     def set_car_colors(self) -> None:
         """Set car colors in the dropdown on the OLX website."""
-        self.set_dropdown_options(CAR_COLOR_DROPDOWN_OLX_XPATH, *self.config.colors)
+        self.set_dropdown_options(
+            CAR_COLOR_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
+            *self.config.colors,
+        )
 
     def set_car_steering_wheel_placement(self) -> None:
         """Set car steering wheel placement in the dropdown on the OLX website."""
         self.set_dropdown_options(
             CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
             *self.config.steering_wheel_placements,
         )
 
@@ -126,5 +148,6 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         """Set car technical condition in the dropdown on the OLX website."""
         self.set_dropdown_options(
             CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+            self.TIMEOUT_BETWEEN_ACTIONS,
             *self.config.technical_conditions,
         )

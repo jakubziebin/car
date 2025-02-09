@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Iterable
 
@@ -50,6 +51,7 @@ class BaseDropdownInputsSetter(ABC):
     def set_dropdown_options(
         self,
         dropdown_xpath: str,
+        timeout: float | int = 0,
         *dropdown_chooses: Iterable[str],
     ) -> None:
         """
@@ -57,6 +59,7 @@ class BaseDropdownInputsSetter(ABC):
 
         Args:
             dropdown_xpath (str): XPath to the dropdown.
+            timeout: wait after setting dropdown options.
             dropdown_chooses (DropdownPossibleChoosesT): Dropdown options to choose.
 
         Raises:
@@ -76,3 +79,6 @@ class BaseDropdownInputsSetter(ABC):
             option.click()
 
         dropdown.click()  # Close dropdown after choosing options.
+
+        if timeout > 0:
+            time.sleep(timeout)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from abc import ABC, abstractmethod
 
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -27,6 +28,7 @@ class RangeInputsSetter(ABC):
         *,
         min_value: int | None = None,
         max_value: int | None = None,
+        timeout: float | int | None = None,
     ) -> None:
         """
         Method to set value of inputs with min and max value.
@@ -36,6 +38,7 @@ class RangeInputsSetter(ABC):
             max_input_x_path(str): xpath to max input.
             min_value(int | None): value to set in min input.
             max_value(int | None): value to set in max input.
+            timeout(int | float | None): wait after setting inputs.
 
         Raises:
             ValueError: If min_value is greater than max_value.
@@ -55,3 +58,6 @@ class RangeInputsSetter(ABC):
         if max_value is not None:
             max_value_input = self.webdriver.find_element(By.XPATH, max_input_x_path)
             max_value_input.send_keys(str(max_value))
+
+        if timeout is not None:
+            time.sleep(timeout)
