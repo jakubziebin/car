@@ -80,6 +80,7 @@ class CarSearcher(BaseCarSearcher):
         ):  # Category is already set when exception occurred,
             category_dropdown.find_element(By.XPATH, ALL_CATEGORIES_OLX_XPATH)
             category_dropdown.click()
+        time.sleep(self.TIMEOUT_AFTER_ACTION)
 
     def set_category(self) -> None:
         """Set motorization category."""
