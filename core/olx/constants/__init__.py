@@ -26,7 +26,11 @@ from .xpaths import (
     CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
 )
 from .element_names import MAX_PRICE_INPUT_NAME_OLX
-from .element_ids import CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX, SEARCH_INPUT_ID_OLX
+from .element_ids import (
+    CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX,
+    SEARCH_INPUT_ID_OLX,
+    LOCATION_INPUT_ID_OLX,
+)
 from .element_classes import CAR_TO_CHOOSE_CLASS_OLX
 from .timeouts import DEFAULT_WAIT_TIMEOUT
 
@@ -39,6 +43,7 @@ __all__ = [
     # ELEMENT IDS
     "CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX",
     "SEARCH_INPUT_ID_OLX",
+    "LOCATION_INPUT_ID_OLX",
     # ELEMENT CLASSES
     "CAR_TO_CHOOSE_CLASS_OLX",
     # ELEMENT NAMES

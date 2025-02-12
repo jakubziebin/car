@@ -17,7 +17,9 @@ CallableToPreventStaleElement: TypeAlias = Callable[..., bool]
 class StaleElementHandler:
     MAX_TRIES: ClassVar[int] = 3  # override to modify
 
-    def __init__(self, executable: CallableToPreventStaleElement) -> None:
+    def __init__(
+        self, executable: CallableToPreventStaleElement, *args, **kwargs
+    ) -> None:
         """
         Initialize StaleElementHandler.
 
@@ -25,6 +27,8 @@ class StaleElementHandler:
             executable: function to execute in the handler. Must return bool either passed or not.
         """
         self._executable = executable
+        self._args = args
+        self._kwargs = kwargs
 
     def execute(self) -> None:
         """Tries to execute `element_click_function` `max_tries` times."""
@@ -33,7 +37,7 @@ class StaleElementHandler:
 
         while current <= self.MAX_TRIES:
             try:
-                result = self._executable()
+                result = self._executable(*self._args, **self._kwargs)
                 if result:
                     return
             except StaleElementReferenceException as error:
