@@ -18,7 +18,11 @@ class RangeInputsSetter(ABC):
 
     @abstractmethod
     def execute_range_inputs_filling(self) -> None:
-        """Method to execute filling range inputs."""
+        """
+        Method to execute filling range inputs.
+
+        Please notice that to use this setter you need to create and instance end then execute this method.
+        """
 
     @property
     def webdriver(self) -> WebDriver:
