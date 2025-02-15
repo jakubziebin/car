@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+from typing import ClassVar
 from abc import ABC, abstractmethod
 
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -9,6 +10,8 @@ from selenium.webdriver.common.by import By
 
 class RangeInputsSetter(ABC):
     """Base class for setting range inputs."""
+
+    TIMEOUT_BETWEEN_RANGES_SET: ClassVar[int] = 1
 
     def __init__(self, webdriver: WebDriver) -> None:
         self._webdriver = webdriver
@@ -54,10 +57,12 @@ class RangeInputsSetter(ABC):
         if min_value is not None:
             min_value_input = self.webdriver.find_element(By.XPATH, min_input_xpath)
             min_value_input.send_keys(str(min_value))
+            time.sleep(self.TIMEOUT_BETWEEN_RANGES_SET)
 
         if max_value is not None:
             max_value_input = self.webdriver.find_element(By.XPATH, max_input_x_path)
             max_value_input.send_keys(str(max_value))
+            time.sleep(self.TIMEOUT_BETWEEN_RANGES_SET)
 
         if timeout is not None:
             time.sleep(timeout)
