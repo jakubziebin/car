@@ -1,5 +1,5 @@
 ci:
-    skip: [mypy]
+    skip: [mypy-local]
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
@@ -19,8 +19,13 @@ repos:
         name: format code using Ruff formatter
 -   repo: local
     hooks:
-    -   id: mypy
-        name: type check with mypy
+    -   id: mypy-local
+        name: type check with mypy locally
         entry: mypy
         language: system
         types: [ python ]
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.14.1'
+    hooks:
+    -   id: mypy
+        name: type check with mypy mirror to run on CI
