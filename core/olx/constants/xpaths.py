@@ -59,3 +59,4 @@ MIN_POWER_INPUT_OLX_XPATH: Final[str] = (
 MAX_POWER_INPUT_OLX_XPATH: Final[str] = (
     '//div[contains(text(), "Moc silnika")]/following::input[@name="range-to-input"][1]'
 )
+LOCATION_BUTTON_OLX_XPATH: Final[str] = "//button[@data-testid='dropdown-head-button']"

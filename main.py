@@ -12,10 +12,9 @@ from car.utils.olx.set_dropdown_inputs import (
     OlxCarPropertiesConfig,
     OlxDropdownInputsSetter,
 )
-from car.utils.olx.set_search_ranges import OlxRangeInputsSetter
 from car.utils.olx.set_location import OlxLocationSetter
 from car.core.car_search_config.range_config import CarRangesConfig
-
+from car.utils.olx.set_search_ranges import OlxRangeInputsSetter
 
 if __name__ == "__main__":
     service = Service(executable_path=CHROME_DRIVER_PATH)
@@ -47,6 +46,6 @@ if __name__ == "__main__":
     CarSearcher(driver, "Kia", "rio").execute_car_search()
     OlxRangeInputsSetter(driver, ranges_config).execute_range_inputs_filling()
     OlxDropdownInputsSetter(driver, car_properties_config).execute_dropdown_inputs_set()
-    OlxLocationSetter(driver, "katowice").execute_location_set()
+    OlxLocationSetter(driver, "katowice", "+100 km").execute_location_set()
 
     time.sleep(1000)
