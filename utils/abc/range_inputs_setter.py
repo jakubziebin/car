@@ -51,9 +51,9 @@ class RangeInputsSetter(ABC):
             ValueError: If min_value is greater than max_value.
             AssertionError: If min_value and max_value are None.
         """
-        assert (
-            min_value is not None or max_value is not None
-        ), "Both min and max values cannot be None."
+        assert min_value is not None or max_value is not None, (
+            "Both min and max values cannot be None."
+        )
 
         if (min_value is not None and max_value is not None) and min_value > max_value:
             raise ValueError("Min value cannot be greater than max value.")
