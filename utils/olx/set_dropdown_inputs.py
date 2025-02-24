@@ -34,9 +34,9 @@ if TYPE_CHECKING:
 DEFAULT_CAR_PROPERTY_OLX: Final[str] = "Wszystkie"
 
 
-def _get_default_property_olx_config() -> (
-    list[Any]
-):  # TODO: proper resolution of return type
+def _get_default_property_olx_config() -> list[
+    Any
+]:  # TODO: proper resolution of return type
     return [DEFAULT_CAR_PROPERTY_OLX]
 
 
