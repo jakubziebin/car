@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from .paths import CHROME_DRIVER_PATH
 from .urls import OLX_URL
 from .xpaths import (
     MODEL_CHOOSE_OLX_XPATH,
@@ -37,8 +36,6 @@ from .timeouts import DEFAULT_WAIT_TIMEOUT
 
 
 __all__ = [
-    # PATHS
-    "CHROME_DRIVER_PATH",
     # URLS
     "OLX_URL",
     # ELEMENT IDS
