@@ -11,16 +11,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
-from car.utils.abc.car_searcher import BaseCarSearcher
-from car.utils.stale_element_handle import StaleElementHandler
-from car.core.olx.constants import (
+from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
+from car_searcher.utils.abc.car_searcher import BaseCarSearcher
+from car_searcher.utils.stale_element_handle import StaleElementHandler
+from car_searcher.core.olx.constants import (
     SEARCH_INPUT_ID_OLX,
     CAR_TO_CHOOSE_CLASS_OLX,
     DEFAULT_WAIT_TIMEOUT,
     MODEL_CHOOSE_OLX_XPATH,
 )
-from car.core.olx.constants.xpaths import (
+from car_searcher.core.olx.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
     CATEGORY_DROPDOWN_OLX_XPATH,
     MOTORIZATION_OLX_XPATH,
@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 
 
 class CarSearcher(BaseCarSearcher):
-    """Class used to search car on OLX."""
+    """Class used to search car_searcher on OLX."""
 
     TIMEOUT_AFTER_ACTION: Final[float] = WAIT_BETWEEN_FIELDS_SETTING
 
@@ -43,8 +43,8 @@ class CarSearcher(BaseCarSearcher):
 
         Args:
             webdriver: webdriver.
-            car_brand: brand of the car.
-            car_model: model of the car.
+            car_brand: brand of the car_searcher.
+            car_model: model of the car_searcher.
         """
         super().__init__(webdriver)
         self._car_brand = car_brand
@@ -59,7 +59,7 @@ class CarSearcher(BaseCarSearcher):
         self.select_passed_model_from_expanded_list()
 
     def paste_car_model_in_input(self) -> None:
-        """Paste car model in the search input."""
+        """Paste car_searcher model in the search input."""
         input_component = self.webdriver.find_element(By.ID, SEARCH_INPUT_ID_OLX)
         input_component.send_keys(f"{self._car_brand} {self._car_model}")
 
@@ -123,5 +123,5 @@ class CarSearcher(BaseCarSearcher):
         cars_to_choose = car_list.find_elements(By.CLASS_NAME, CAR_TO_CHOOSE_CLASS_OLX)
         StaleElementHandler(partial(click_chosen_model, cars=cars_to_choose)).execute()
 
-        car_list.click()  # close car list
+        car_list.click()  # close car_searcher list
         time.sleep(self.TIMEOUT_AFTER_ACTION)

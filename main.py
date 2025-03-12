@@ -5,19 +5,19 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-from car.core.olx.constants import CHROME_DRIVER_PATH, OLX_URL
-from car.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
-from car.utils.olx.search_car import CarSearcher
-from car.utils.olx.set_dropdown_inputs import (
+from car_searcher.core.olx.constants import CHROME_DRIVER_PATH, OLX_URL
+from car_searcher.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
+from car_searcher.utils.olx.search_car import CarSearcher
+from car_searcher.utils.olx.set_dropdown_inputs import (
     OlxCarPropertiesConfig,
     OlxDropdownInputsSetter,
 )
-from car.utils.olx.set_location import OlxLocationSetter
-from car.core.car_search_config.range_config import CarRangesConfig
-from car.utils.olx.set_search_ranges import OlxRangeInputsSetter
+from car_searcher.utils.olx.set_location import OlxLocationSetter
+from car_searcher.core.car_search_config.range_config import CarRangesConfig
+from car_searcher.utils.olx.set_search_ranges import OlxRangeInputsSetter
 
 if __name__ == "__main__":
-    service = Service(executable_path=CHROME_DRIVER_PATH)
+    service = Service(CHROME_DRIVER_PATH)
     driver = webdriver.Chrome(service=service)
     driver.get(OLX_URL)
 

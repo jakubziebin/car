@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Final, Any
 
-from car.core.olx.constants import (
+from car_searcher.core.olx.constants import (
     DRIVE_TYPE_DROPDOWN_OLX_XPATH,
     GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
     BODY_TYPE_DROPDOWN_OLX_XPATH,
@@ -13,9 +13,11 @@ from car.core.olx.constants import (
     CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
     FUEL_TYPE_DROPDOWN_OLX_XPATH,
 )
-from car.core.car_search_config.car_properties_config import BaseCarPropertiesConfig
-from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
-from car.core.olx.options_to_choose.car_attributes import (
+from car_searcher.core.car_search_config.car_properties_config import (
+    BaseCarPropertiesConfig,
+)
+from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
+from car_searcher.core.olx.options_to_choose.car_attributes import (
     CarPossibleFuelOlx,
     CarPossibleDriveOlx,
     CarPossibleGearboxOlx,
@@ -25,7 +27,7 @@ from car.core.olx.options_to_choose.car_attributes import (
     CarSteeringWheelPlacementOlx,
     CarTechnicalConditionOlx,
 )
-from car.utils.abc.dropdown_inputs_setter import BaseDropdownInputsSetter
+from car_searcher.utils.abc.dropdown_inputs_setter import BaseDropdownInputsSetter
 
 if TYPE_CHECKING:
     from selenium.webdriver import Chrome
@@ -129,7 +131,7 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         )
 
     def set_car_colors(self) -> None:
-        """Set car colors in the dropdown on the OLX website."""
+        """Set car_searcher colors in the dropdown on the OLX website."""
         self.set_dropdown_options(
             CAR_COLOR_DROPDOWN_OLX_XPATH,
             self.TIMEOUT_BETWEEN_ACTIONS,
@@ -137,7 +139,7 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         )
 
     def set_car_steering_wheel_placement(self) -> None:
-        """Set car steering wheel placement in the dropdown on the OLX website."""
+        """Set car_searcher steering wheel placement in the dropdown on the OLX website."""
         self.set_dropdown_options(
             CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
             self.TIMEOUT_BETWEEN_ACTIONS,
@@ -145,7 +147,7 @@ class OlxDropdownInputsSetter(BaseDropdownInputsSetter):
         )
 
     def set_car_technical_condition(self) -> None:
-        """Set car technical condition in the dropdown on the OLX website."""
+        """Set car_searcher technical condition in the dropdown on the OLX website."""
         self.set_dropdown_options(
             CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
             self.TIMEOUT_BETWEEN_ACTIONS,

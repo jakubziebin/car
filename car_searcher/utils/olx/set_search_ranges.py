@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from car.core.car_search_config.range_config import CarRangesConfig
-from car.core.olx.constants import (
+from car_searcher.core.car_search_config.range_config import CarRangesConfig
+from car_searcher.core.olx.constants import (
     DEFAULT_WAIT_TIMEOUT,
     MAX_PRICE_INPUT_NAME_OLX,
     FROM_PRODUCTION_YEAR_OLX_XPATH,
@@ -20,8 +20,8 @@ from car.core.olx.constants import (
     MIN_POWER_INPUT_OLX_XPATH,
     MAX_POWER_INPUT_OLX_XPATH,
 )
-from car.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
-from car.utils.abc.range_inputs_setter import RangeInputsSetter
+from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
+from car_searcher.utils.abc.range_inputs_setter import RangeInputsSetter
 
 if TYPE_CHECKING:
     from selenium.webdriver import Chrome
@@ -36,7 +36,7 @@ class OlxRangeInputsSetter(RangeInputsSetter):
 
         Args:
             webdriver: Chrome webdriver.
-            car_ranges_config: car ranges config instance.
+            car_ranges_config: car_searcher ranges config instance.
         """
         super().__init__(webdriver=webdriver)
         self._config = car_ranges_config
