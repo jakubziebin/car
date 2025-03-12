@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from car.core.olx.constants import (
+from car_searcher.core.olx.constants import (
     CONFIRM_PRIVACY_TERMS_BUTTON_ID_OLX,
     DEFAULT_WAIT_TIMEOUT,
 )

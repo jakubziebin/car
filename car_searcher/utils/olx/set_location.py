@@ -7,17 +7,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from car.core.olx.constants import (
+from car_searcher.core.olx.constants import (
     LOCATION_INPUT_ID_OLX,
     LOCATION_BUTTON_OLX_XPATH,
     DEFAULT_WAIT_TIMEOUT,
 )
-from car.utils.stale_element_handle import StaleElementHandler
+from car_searcher.utils.stale_element_handle import StaleElementHandler
 
 if TYPE_CHECKING:
     from selenium.webdriver import Chrome
 
-    from car.core.olx.options_to_choose.possible_distance_from_location import (
+    from car_searcher.core.olx.options_to_choose.possible_distance_from_location import (
         PossibleDistanceFromLocation,
     )
 
@@ -34,7 +34,7 @@ class OlxLocationSetter:
 
         Args:
             webdriver: chrome webdriver.
-            city: city to search car in.
+            city: city to search car_searcher in.
         """
 
         self._webdriver = webdriver

@@ -171,4 +171,4 @@ cython_debug/
 .pypirc
 
 # Chromedriver
-car/chromedriver.exe
+car_searcher/chromedriver.exe

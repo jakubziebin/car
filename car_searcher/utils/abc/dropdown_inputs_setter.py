@@ -6,8 +6,10 @@ from typing import TYPE_CHECKING, Iterable
 
 from selenium.webdriver.common.by import By
 
-from car.exceptions.car_exception import CarException
-from car.core.car_search_config.car_properties_config import BaseCarPropertiesConfig
+from car_searcher.exceptions.car_exception import CarException
+from car_searcher.core.car_search_config.car_properties_config import (
+    BaseCarPropertiesConfig,
+)
 
 if TYPE_CHECKING:
     from selenium.webdriver.remote.webdriver import WebDriver

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 @dataclass
 class CarRangesConfig:
-    """Config class for car search ranges."""
+    """Config class for car_searcher search ranges."""
 
     min_year: int | None = None
     max_year: int = datetime.now().year

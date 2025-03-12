@@ -4,7 +4,7 @@ from typing import Callable, ClassVar, TypeAlias
 
 from selenium.common.exceptions import StaleElementReferenceException
 
-from car.exceptions.car_exception import CarException
+from car_searcher.exceptions.car_exception import CarException
 
 
 class StaleElementMaxTriesExceedError(CarException):
