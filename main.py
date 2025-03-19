@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -37,7 +38,7 @@ if __name__ == "__main__":
         max_year=2020,
         min_capacity=900,
         max_mileage=100_000,
-        min_power=85,
+        min_power=80,
     )
 
     car_properties_config = OlxCarPropertiesConfig(
@@ -45,9 +46,6 @@ if __name__ == "__main__":
         drive_types=["Na przednie koła"],
         gearbox_types=["Manualna"],
         body_types=["Hatchback"],
-        production_countries=["Polska", "Niemcy"],
-        colors=["Biały", "Czarny", "Szary", "Czerwony"],
-        steering_wheel_placements=["po prawej"],
         technical_conditions=["Nieuszkodzony"],
     )
 
@@ -57,3 +55,4 @@ if __name__ == "__main__":
     OlxRangeInputsSetter(driver, ranges_config).execute_range_inputs_filling()
     OlxDropdownInputsSetter(driver, car_properties_config).execute_dropdown_inputs_set()
     OlxLocationSetter(driver, "katowice", "+100 km").execute_location_set()
+    time.sleep(100000)
