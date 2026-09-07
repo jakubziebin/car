@@ -1,29 +1,29 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Final, Any
+from typing import TYPE_CHECKING, Any, Final
 
-from car_searcher.core.olx.constants import (
-    DRIVE_TYPE_DROPDOWN_OLX_XPATH,
-    GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
-    BODY_TYPE_DROPDOWN_OLX_XPATH,
-    PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
-    CAR_COLOR_DROPDOWN_OLX_XPATH,
-    CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
-    CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
-    FUEL_TYPE_DROPDOWN_OLX_XPATH,
-)
 from car_searcher.core.car_search_config.car_properties_config import (
     BaseCarPropertiesConfig,
 )
+from car_searcher.core.olx.constants import (
+    BODY_TYPE_DROPDOWN_OLX_XPATH,
+    CAR_COLOR_DROPDOWN_OLX_XPATH,
+    CAR_STEERING_WHEEL_PLACEMENT_DROPDOWN_OLX_XPATH,
+    CAR_TECHNICAL_CONDITION_DROPDOWN_OLX_XPATH,
+    DRIVE_TYPE_DROPDOWN_OLX_XPATH,
+    FUEL_TYPE_DROPDOWN_OLX_XPATH,
+    GEARBOX_TYPE_DROPDOWN_OLX_XPATH,
+    PRODUCTION_COUNTRY_DROPDOWN_OLX_XPATH,
+)
 from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car_searcher.core.olx.options_to_choose.car_attributes import (
-    CarPossibleFuelOlx,
-    CarPossibleDriveOlx,
-    CarPossibleGearboxOlx,
     CarPossibleBodyOlx,
-    CarPossibleCountryProductionOlx,
     CarPossibleColorOlx,
+    CarPossibleCountryProductionOlx,
+    CarPossibleDriveOlx,
+    CarPossibleFuelOlx,
+    CarPossibleGearboxOlx,
     CarSteeringWheelPlacementOlx,
     CarTechnicalConditionOlx,
 )
