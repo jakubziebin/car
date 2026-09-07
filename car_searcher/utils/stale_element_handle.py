@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Callable, ClassVar, TypeAlias
+from collections.abc import Callable
+from typing import ClassVar, TypeAlias
 
 from selenium.common.exceptions import StaleElementReferenceException
 
