@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import time
-from typing import ClassVar
 from abc import ABC, abstractmethod
+from typing import ClassVar
 
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 class RangeInputsSetter(ABC):
@@ -35,7 +35,7 @@ class RangeInputsSetter(ABC):
         *,
         min_value: int | None = None,
         max_value: int | None = None,
-        timeout: float | int | None = None,
+        timeout: float | None = None,
     ) -> None:
         """
         Method to set value of inputs with min and max value.
