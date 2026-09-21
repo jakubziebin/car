@@ -2,30 +2,30 @@ from __future__ import annotations
 
 import contextlib
 import time
-from typing import TYPE_CHECKING, Final
 from functools import partial
+from typing import TYPE_CHECKING, Final
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
-from car_searcher.utils.abc.car_searcher import BaseCarSearcher
-from car_searcher.utils.stale_element_handle import StaleElementHandler
 from car_searcher.core.olx.constants import (
-    SEARCH_INPUT_ID_OLX,
     CAR_TO_CHOOSE_CLASS_OLX,
     DEFAULT_WAIT_TIMEOUT,
     MODEL_CHOOSE_OLX_XPATH,
+    SEARCH_INPUT_ID_OLX,
 )
+from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car_searcher.core.olx.constants.xpaths import (
     ALL_CATEGORIES_OLX_XPATH,
+    CAR_CATEGORY_OLX_XPATH,
     CATEGORY_DROPDOWN_OLX_XPATH,
     MOTORIZATION_OLX_XPATH,
-    CAR_CATEGORY_OLX_XPATH,
 )
+from car_searcher.utils.abc.car_searcher import BaseCarSearcher
+from car_searcher.utils.stale_element_handle import StaleElementHandler
 
 if TYPE_CHECKING:
     from selenium.webdriver.remote.webdriver import WebDriver
