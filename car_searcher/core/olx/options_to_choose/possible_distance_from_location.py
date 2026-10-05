@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-
 PossibleDistanceFromLocation = Literal[
     "+0 km",
     "+2 km",
