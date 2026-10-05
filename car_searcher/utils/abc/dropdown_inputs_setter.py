@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import time
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Iterable
+from collections.abc import Iterable
+from typing import TYPE_CHECKING
 
 from selenium.webdriver.common.by import By
 
-from car_searcher.exceptions.car_exception import CarException
 from car_searcher.core.car_search_config.car_properties_config import (
     BaseCarPropertiesConfig,
 )
+from car_searcher.exceptions.car_exception import CarException
 
 if TYPE_CHECKING:
     from selenium.webdriver.remote.webdriver import WebDriver
@@ -53,7 +54,7 @@ class BaseDropdownInputsSetter(ABC):
     def set_dropdown_options(
         self,
         dropdown_xpath: str,
-        timeout: float | int = 0,
+        timeout: float = 0,
         *dropdown_chooses: Iterable[str],
     ) -> None:
         """
