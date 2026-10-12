@@ -3,22 +3,22 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING, Final
 
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from car_searcher.core.car_search_config.range_config import CarRangesConfig
 from car_searcher.core.olx.constants import (
     DEFAULT_WAIT_TIMEOUT,
-    MAX_PRICE_INPUT_NAME_OLX,
-    FROM_PRODUCTION_YEAR_OLX_XPATH,
-    TO_PRODUCTION_YEAR_OLX_XPATH,
     FROM_ENGINE_CAPACITY_OLX_XPATH,
-    TO_ENGINE_CAPACITY_OLX_XPATH,
-    MIN_MILEAGE_INPUT_OLX_XPATH,
+    FROM_PRODUCTION_YEAR_OLX_XPATH,
     MAX_MILEAGE_INPUT_OLX_XPATH,
-    MIN_POWER_INPUT_OLX_XPATH,
     MAX_POWER_INPUT_OLX_XPATH,
+    MAX_PRICE_INPUT_NAME_OLX,
+    MIN_MILEAGE_INPUT_OLX_XPATH,
+    MIN_POWER_INPUT_OLX_XPATH,
+    TO_ENGINE_CAPACITY_OLX_XPATH,
+    TO_PRODUCTION_YEAR_OLX_XPATH,
 )
 from car_searcher.core.olx.constants.timeouts import WAIT_BETWEEN_FIELDS_SETTING
 from car_searcher.utils.abc.range_inputs_setter import RangeInputsSetter
