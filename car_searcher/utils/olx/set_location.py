@@ -8,9 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from car_searcher.core.olx.constants import (
-    LOCATION_INPUT_ID_OLX,
-    LOCATION_BUTTON_OLX_XPATH,
     DEFAULT_WAIT_TIMEOUT,
+    LOCATION_BUTTON_OLX_XPATH,
+    LOCATION_INPUT_ID_OLX,
 )
 from car_searcher.utils.stale_element_handle import StaleElementHandler
 
