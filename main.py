@@ -3,10 +3,11 @@ from __future__ import annotations
 import os
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from car_searcher.core.car_search_config.range_config import CarRangesConfig
 from car_searcher.core.olx.constants import OLX_URL
 from car_searcher.utils.olx.confirm_privacy_terms import confirm_olx_privacy_terms
 from car_searcher.utils.olx.search_car import CarSearcher
@@ -15,7 +16,6 @@ from car_searcher.utils.olx.set_dropdown_inputs import (
     OlxDropdownInputsSetter,
 )
 from car_searcher.utils.olx.set_location import OlxLocationSetter
-from car_searcher.core.car_search_config.range_config import CarRangesConfig
 from car_searcher.utils.olx.set_search_ranges import OlxRangeInputsSetter
 
 if __name__ == "__main__":
